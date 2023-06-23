@@ -3,30 +3,26 @@ let board = document.getElementById('board');
 let cells = document.getElementsByClassName('cell');
 let clearButton = document.getElementById('clr-btn')
 let pressed = false;
+let boardSize = board.clientWidth;
 let gridSize;
 
 init();
 
 
 function drawBoard() {
-  if ((input.valueAsNumber < 5) || (input.valueAsNumber > 60)) {
+  if ((input.valueAsNumber < 5) || (input.valueAsNumber > 100)) {
     gridSize = 16;
   } else {
     gridSize = input.valueAsNumber;
   }
-
-  for (let j = 0; j < gridSize; j++) {
-    let column = document.createElement('div');
-    column.classList.add('column');
-
-    for (let i = 0; i < gridSize; i++) {
-      let cell = document.createElement('div');
-      cell.classList.add('cell');
-
-      column.appendChild(cell);
-    }
-
-    board.appendChild(column);
+  // let cellWidth = boardSize / gridSize;
+  let cellWidth = 100 / gridSize;
+  for (let i = 0; i < gridSize ** 2; i++){
+    let cell = document.createElement('div');
+    cell.classList.add('cell');
+    cell.style.width = `${cellWidth}%`;
+    cell.style.height = `${cellWidth}%`;
+    board.appendChild(cell);
   }
   addEventListener();
 }
