@@ -1,20 +1,20 @@
-let gridSize = document.getElementById('grid-size').valueAsNumber;
+let input = document.getElementById('grid-size');
 let board = document.getElementById('board');
 let cells = document.getElementsByClassName('cell');
+let clearButton = document.getElementById('clr-btn')
 let pressed = false;
+let gridSize;
 
-drawBoard();
-
-for (i = 0; i < cells.length; i++){
-  cells[i].addEventListener('mouseover', renderPixel);
-  cells[i].addEventListener('mousedown', renderPixel);
-}
-
-board.addEventListener('mousedown', (e) => (pressed = true));
-board.addEventListener('mouseup', (e) => (pressed = false));
+init();
 
 
 function drawBoard() {
+  if ((input.valueAsNumber < 5) || (input.valueAsNumber > 60)) {
+    gridSize = 16;
+  } else {
+    gridSize = input.valueAsNumber;
+  }
+
   for (let j = 0; j < gridSize; j++) {
     let column = document.createElement('div');
     column.classList.add('column');
@@ -28,29 +28,34 @@ function drawBoard() {
 
     board.appendChild(column);
   }
+  addEventListener();
 }
 
 function renderPixel(event) {
   if (pressed || event.type === 'mousedown') {
     event.target.style.backgroundColor = 'black';
   }
-  //event.stopPropagation(); //Doesn't stop the dragging thing infact it stops the mouseover event from happening
+  event.preventDefault();
 }
 
-//Below is the code i first wrote where i used event propagation to detect mousedown and mouseover
-//on the div containing the cells. But then i read somewhere that i could stop the dragging thing
-//by calling stopPropagation so rewrote the code and added eventListeners to every cell.
+function addEventListener() {
+  for (i = 0; i < cells.length; i++){
+    cells[i].addEventListener('mouseover', renderPixel);
+    cells[i].addEventListener('mousedown', renderPixel);
+  }
+}
 
-// board.addEventListener('mouseover', e => {
-//   if (e.target.className == 'cell' && pressed == true) {
-//     e.target.style.backgroundColor = 'black';
-//   }
-// });
- 
-// board.addEventListener('mousedown', (e) => {
-//   pressed = true;
-//   if (e.target.className == 'cell' && pressed == true) {
-//     e.target.style.backgroundColor = 'black';
-//   }
-// });
-// board.addEventListener('mouseup', () => { pressed = false; });
+function resetBoard() {
+  board.innerHTML = " ";
+  drawBoard();
+}
+
+
+
+function init() {
+  drawBoard();
+  document.body.addEventListener('mousedown', (e) => (pressed = true));
+  document.body.addEventListener('mouseup', (e) => (pressed = false));
+  input.addEventListener('input', resetBoard);
+  clearButton.addEventListener('click', resetBoard);
+}

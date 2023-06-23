@@ -4,6 +4,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: black;
 }
 
 .header {
@@ -11,26 +12,24 @@ body {
   text-align: center;
   font-size: 40px;
   background-color: rgb(255, 255, 188);
-  width: 1090px;
+  width: 1150px;
 }
 
 .container{
   border-style: solid;
-  border-width: 0px 15px 15px;
+  border-width: 0px 45px 0px 45px;
   border-color: rgb(255, 255, 188);
   flex: 1;
   width: 1080px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(231, 231, 231);
+  background-color: rgb(238, 238, 238);
 }
 
 #board {
   display: flex;
   background-color: white;
-  /* justify-content: center;
-  align-items: center; */
 }
 
 .column {
@@ -42,24 +41,26 @@ body {
   height: 15px;
   width: 15px;
   border-width: 0px;
-  border-style: solid;
-  border-color: lightgray;
-  /* box-shadow: 1px 1px; */
 }
 
 .controls {
   text-align: center;
   padding: 8px;
+  background-color: rgb(255, 255, 188);
+  width: 1154px;
 }
 
 .footer {
   text-align: center;
-  background-color: lightgray;
+  background-color: black;
   padding: 8px;
   align-self: stretch;
+  color: white;
 }
 
 button {
   font-size: 18px;
   padding: 0px 8px;
+  background-color: whitesmoke;
+  border-radius: 5px;
 }
