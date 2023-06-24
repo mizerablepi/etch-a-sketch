@@ -5,7 +5,6 @@ let clearButton = document.getElementById('clr-btn')
 let eraseButton = document.getElementById('ers-btn');
 let pressed = false;
 let boardSize = board.clientWidth;
-let color = 'black';
 let text = 'erase';
 let gridSize;
 
@@ -32,7 +31,15 @@ function drawBoard() {
 
 function renderPixel(event) {
   if (pressed || event.type === 'mousedown') {
-    event.target.style.backgroundColor = color;
+    let rgb = (event.target.style.backgroundColor).match(/\d+/g);
+    if (!rgb && text === 'erase') {
+      event.target.style.backgroundColor = 'rgb(229,229,229)';  
+    } else if(text === 'erase'){
+      event.target.style.backgroundColor = `rgb(${+rgb[0] - 26},${+rgb[1] - 26},${+rgb[2] - 26})`;
+    } else if(rgb && text === 'sketch'){
+      event.target.style.backgroundColor = `rgb(${+rgb[0] + 26},${+rgb[1] + 26},${+rgb[2] + 26})`;
+    }
+    
   }
   event.preventDefault();
 }
@@ -50,7 +57,6 @@ function resetBoard() {
 }
 
 function changeColorAndText() {
-  color = color == 'black' ? 'white' : 'black';
   text = text == 'erase' ? 'sketch' : 'erase';
   eraseButton.textContent = text;
 }
